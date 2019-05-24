@@ -19,8 +19,14 @@
   "scripts": {
     "test": "jest"
   },
-  "keywords": ["ssr", "webcomponents"],
+  "keywords": [
+    "ssr",
+    "webcomponents"
+  ],
   "dependencies": {
+    "commander": "2.20.0",
+    "esm": "3.2.25",
+    "glob": "7.1.4",
     "postcss": "7.0.14",
     "puppeteer": "1.13.0"
   },

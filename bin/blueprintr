@@ -1,0 +1,32 @@
+#!/usr/bin/env node
+require = require("esm")(module/*, options*/)
+
+const head = require('lodash/head')
+const program = require('commander')
+const glob = require('glob')
+const blueprintr = require('../index').default
+const pkg = require('../package');
+const globSync = val => glob.sync(val, { absolute: true, ignore: 'node_modules/**/*' })
+
+program
+  .version(pkg.version, '-v, --version')
+  .usage('-i <files> [options]')
+  .description(`${pkg.name} (v${pkg.version}): ${pkg.description}`)
+  .option('-i, --input <files>', 'Source files', globSync)
+  .option('-o, --output', 'Destination folder')
+
+program.parse(process.argv)
+
+if (!program.input) {
+  console.error('No input files were given.')
+  program.outputHelp(() => program.help())
+  process.exit(1)
+}
+
+(async () => {
+  const pages = await blueprintr(program.input.map(path => `file://${path}`))
+
+  pages.length === 1
+    ? console.log(head(pages))
+    : console.log(pages)
+})()
