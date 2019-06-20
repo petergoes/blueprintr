@@ -1,0 +1,68 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Blueprintr</title>
+<script type="module" src="./bundle.js"></script>
+<style>
+  html, body {
+    margin: 0;
+    padding: 0;
+  }
+</style>
+
+<style data-ssr-element="app-hero">app-hero{display:flex;min-height:50vh;justify-content:center;align-items:center}app-hero h1{margin:0}</style><style data-ssr-element="app-content">app-content{display:block}app-content div{max-width:72ch;margin:0 auto}</style></head><body><app-hero data-ssr="serialized"><header><h1><span slot="title" data-slotted="">Blueprintr!</span></h1></header><template type="ssr-light-dom">
+  <span slot="title">Blueprintr!</span>
+</template></app-hero>
+
+<app-content data-ssr="serialized"><div>
+  <p data-slotted="">A server side renderer for Web Components</p>
+</div><template type="ssr-light-dom">
+  <p>A server side renderer for Web Components</p>
+</template></app-content><script>function hydrate() {
+  function isElementWithNameAndType(nodeName, type) {
+    return function(node) {
+      return node.nodeName === nodeName && node.getAttribute('type') === type
+    }
+  }
+
+  function hydrateElement(el) {
+    const lightDom = Array.from(el.children).find(isElementWithNameAndType('TEMPLATE', 'ssr-light-dom'))
+    const lightDomContent = lightDom && lightDom.content
+    const dataElement = Array.from(el.children).find(isElementWithNameAndType('SCRIPT', 'ssr-data'))
+    const dataContent = dataElement && dataElement.innerText
+    const data = dataContent && JSON.parse(dataContent)
+
+    Array.from(el.childNodes).forEach(node => {
+      if (node !== lightDom) {
+        node.parentElement.removeChild(node)
+      }
+    })
+
+    lightDomContent && Array.from(lightDomContent.childNodes).forEach(function(node) { return el.appendChild(node) })
+    lightDom && lightDom.parentElement.removeChild(lightDom)
+    dataElement && dataElement.parentElement && dataElement.parentElement.removeChild(dataElement)
+    data && Object.keys(data).forEach(key => {
+      el[key] = data[key]
+    })
+
+    el.setAttribute('data-ssr', 'hydrated')
+  }
+
+  Array.from(document.querySelectorAll('[data-ssr="serialized"]:not(:defined)'))
+    .reduce(function(acc, node) {
+      acc.indexOf(node.nodeName) === -1 && acc.push(node.nodeName)
+      return acc
+    }, [])
+    .forEach(function(name) {
+      var nodeName = name.toLowerCase()
+      customElements.whenDefined(nodeName)
+        .then(function() {
+          Array.from(document.querySelectorAll(nodeName + '[data-ssr="serialized"]'))
+            .forEach(hydrateElement)
+        })
+        .then(function() {
+          Array.from(document.querySelectorAll('style[data-ssr-element="' + nodeName + '"]'))
+            .forEach(el => el.parentElement.removeChild(el))
+        })
+    })
+}; hydrate();</script></body></html>
