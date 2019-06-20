@@ -8,17 +8,39 @@
     margin: 0;
     padding: 0;
   }
+
+  body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  body > * {
+    flex: 1
+  }
+
+  app-hero,
+  app-footer {
+    flex-grow: 0;
+  }
 </style>
 
-<style data-ssr-element="app-hero">app-hero{display:flex;min-height:50vh;justify-content:center;align-items:center}app-hero h1{margin:0}</style><style data-ssr-element="app-content">app-content{display:block}app-content div{max-width:72ch;margin:0 auto}</style></head><body><app-hero data-ssr="serialized"><header><h1><span slot="title" data-slotted="">Blueprintr!</span></h1></header><template type="ssr-light-dom">
-  <span slot="title">Blueprintr!</span>
+
+<style data-ssr-element="app-hero">app-hero{display:flex;min-height:50vh;justify-content:center;align-items:center}app-hero h1{margin:0}</style><style data-ssr-element="app-content">app-content{display:block}app-content div{max-width:72ch;margin:0 auto}</style><style data-ssr-element="app-footer">app-footer{display:flex;justify-content:center;align-items:center}</style></head><body><app-hero data-ssr="serialized"><header><h1><span slot="title" data-slotted="">Blueprintr</span></h1> <strong><span slot="subtitle" data-slotted="">A server side renderer for Web Components</span></strong></header><template type="ssr-light-dom">
+  <span slot="title">Blueprintr</span>
+  <span slot="subtitle">A server side renderer for Web Components</span>
 </template></app-hero>
 
 <app-content data-ssr="serialized"><div>
-  <p data-slotted="">A server side renderer for Web Components</p>
+  <p data-slotted="">In this project I research what it takes to server side render Web Components. The project is in a pre-alpha state! Take a look around in the <a href="https://github.com/petergoes/blueprintr">repo</a>. Or read my blog posts in which I document my progress. These can be found <a href="https://petergoes.nl/blog">here</a>.</p>
 </div><template type="ssr-light-dom">
-  <p>A server side renderer for Web Components</p>
-</template></app-content><script>function hydrate() {
+  <p>In this project I research what it takes to server side render Web Components. The project is in a pre-alpha state! Take a look around in the <a href="https://github.com/petergoes/blueprintr">repo</a>. Or read my blog posts in which I document my progress. These can be found <a href="https://petergoes.nl/blog">here</a>.</p>
+</template></app-content>
+
+<app-footer data-ssr="serialized"><footer>
+  <p data-slotted="">By <a href="https://www.petergoes.nl">Peter Goes</a> - <a href="https://twitter.com/petergoes">@petergoes</a></p>
+</footer><template type="ssr-light-dom">
+  <p>By <a href="https://www.petergoes.nl">Peter Goes</a> - <a href="https://twitter.com/petergoes">@petergoes</a></p>
+</template></app-footer><script>function hydrate() {
   function isElementWithNameAndType(nodeName, type) {
     return function(node) {
       return node.nodeName === nodeName && node.getAttribute('type') === type

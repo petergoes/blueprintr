@@ -22,4 +22,7 @@ h1 {
   <h1>
     <slot name="title"></slot>
   </h1>
+  <strong>
+    <slot name="subtitle"></slot>
+  </strong>
 </header>

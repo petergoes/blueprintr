@@ -9,12 +9,32 @@
     margin: 0;
     padding: 0;
   }
+
+  body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  body > * {
+    flex: 1
+  }
+
+  app-hero,
+  app-footer {
+    flex-grow: 0;
+  }
 </style>
+
 
 <app-hero>
   <span slot="title">Blueprintr</span>
+  <span slot="subtitle">A server side renderer for Web Components</span>
 </app-hero>
 
 <app-content>
-  <p>A server side renderer for Web Components</p>
+  <p>In this project I research what it takes to server side render Web Components. The project is in a pre-alpha state! Take a look around in the <a href="https://github.com/petergoes/blueprintr">repo</a>. Or read my blog posts in which I document my progress. These can be found <a href="https://petergoes.nl/blog">here</a>.</p>
 </app-content>
+
+<app-footer>
+  <p>By <a href="https://www.petergoes.nl">Peter Goes</a> - <a href="https://twitter.com/petergoes">@petergoes</a></p>
+</app-footer>
