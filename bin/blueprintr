@@ -12,7 +12,7 @@ program
   .version(pkg.version, '-v, --version')
   .usage('-i <files> [options]')
   .description(`${pkg.name} (v${pkg.version}): ${pkg.description}`)
-  .option('-i, --input <files>', 'Source files', globSync)
+  .option('-i, --input <files>', 'Source files')
   .option('-o, --output', 'Destination folder')
 
 program.parse(process.argv)
@@ -24,7 +24,7 @@ if (!program.input) {
 }
 
 (async () => {
-  const pages = await blueprintr(program.input.map(path => `file://${path}`))
+  const pages = await blueprintr([program.input])
 
   pages.length === 1
     ? console.log(head(pages))
