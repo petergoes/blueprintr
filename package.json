@@ -37,6 +37,6 @@
     "lodash": "4.17.11",
     "rollup": "1.15.6",
     "rollup-plugin-svelte": "5.1.0",
-    "svelte": "3.5.3"
+    "svelte": "3.49.0"
   }
 }
